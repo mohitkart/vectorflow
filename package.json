@@ -17,7 +17,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "run":"python3 -m uvicorn main:app --reload"
+    "run":"python3 -m uvicorn main:app --reload",
+    "create-req":"cd ../backend && pip freeze > requirements.txt",
+    "in-req":"cd ../backend && pip install -r requirements.txt"
   },
   "eslintConfig": {
     "extends": [
