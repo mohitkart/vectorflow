@@ -49,6 +49,7 @@ export const PipelineToolbar = () => {
             <DraggableNode type='llm' label='LLM' icon={<span className="material-symbols-outlined !text-[18px]">chat</span>} />
             <DraggableNode type='customOutput' label='Output' icon={<span className="material-symbols-outlined !text-[18px]">output</span>} />
             <DraggableNode type='text' label='Text' icon={<span className="material-symbols-outlined !text-[18px]">text_ad</span>} />
+            <DraggableNode type='preview' label='Preview' icon={<span className="material-symbols-outlined !text-[18px]">preview</span>} />
 
             <button
                 onClick={onSubmit}
