@@ -4,15 +4,15 @@ import { useEffect, useRef, useState } from 'react';
 import { Handle, Position } from 'reactflow';
 import { extractVariables, getCurrentVariable } from '../../utills/shared';
 import { shallow } from 'zustand/shallow';
-import  {selector, useStore} from "../../utills/store"
+import { selector, useStore } from "../../utills/store"
 
 export const TextNode = ({ id, data }) => {
- const {
-      nodes,
-      removeNode
-    } = useStore(selector, shallow);
+  const {
+    nodes,
+    removeNode
+  } = useStore(selector, shallow);
 
-    const DEFAULT_VARIABLES=nodes.filter(itm=>itm.type=="customInput").map(itm=>itm.data.name||itm.id)
+  const DEFAULT_VARIABLES = nodes.filter(itm => itm.type == "customInput").map(itm => itm.data.name || itm.id)
 
   const textareaRef = useRef(null);
   const [text, setText] = useState(data?.text || ``);
@@ -38,9 +38,6 @@ export const TextNode = ({ id, data }) => {
     setCursorPos(cursor);
 
     const current = getCurrentVariable(value, cursor);
-
-    
-
     if (current !== null) {
       const filtered = DEFAULT_VARIABLES.filter(v =>
         v.toLowerCase().startsWith(current.toLowerCase())
@@ -58,7 +55,6 @@ export const TextNode = ({ id, data }) => {
     const before = text.slice(0, cursorPos).replace(/{{\s*[a-zA-Z_$]*$/, "");
     const after = text.slice(cursorPos);
     const updatedText = `${before}{{${variable}}}${after}`;
-
     setText(updatedText);
     setShowSuggestions(false);
 
@@ -83,7 +79,7 @@ export const TextNode = ({ id, data }) => {
       <div className='px-3 py-2 font-bold border-b border-blue-500 bg-blue-50 flex gap-1 items-center'>
         <span className="material-symbols-outlined !text-[20px]">text_ad</span>
         <span>Text</span>
-        <span className="material-symbols-outlined !text-[18px] text-red-500 ml-auto cursor-pointer" onClick={()=>removeNode(id)}>close</span>
+        <span className="material-symbols-outlined !text-[18px] text-red-500 ml-auto cursor-pointer" onClick={() => removeNode(id)}>close</span>
       </div>
       <div className='p-2 bg-white'>
         <label>
@@ -100,18 +96,18 @@ export const TextNode = ({ id, data }) => {
           />
         </label>
         {showSuggestions && (
-        <ul className="absolute z-10 bg-white border rounded shadow w-48">
-          {suggestions.map((item) => (
-            <li
-              key={item}
-              className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
-              onClick={() => insertVariable(item)}
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      )}
+          <ul className="absolute z-10 bg-white border rounded shadow w-48">
+            {suggestions.map((item) => (
+              <li
+                key={item}
+                className="px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                onClick={() => insertVariable(item)}
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
       <Handle
         type="source"
@@ -119,7 +115,7 @@ export const TextNode = ({ id, data }) => {
         id={`${id}-output`}
       />
 
-      
+
     </div>
   );
 }

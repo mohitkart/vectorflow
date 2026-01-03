@@ -1,6 +1,6 @@
 // inputNode.js
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Handle, Position } from 'reactflow';
 import { selector, useStore } from '../../utills/store';
 import { shallow } from 'zustand/shallow';
@@ -16,8 +16,11 @@ export const InputNode = ({ id, data }) => {
 
   const handleNameChange = (e) => {
     setCurrName(e.target.value);
-    onNodeDataUpdate({id:data.id,name:e.target.value})
   };
+
+  useEffect(()=>{
+    onNodeDataUpdate({id:data.id,name:currName})
+  },[currName])
 
   const handleTypeChange = (e) => {
     setInputType(e.target.value);

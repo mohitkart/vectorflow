@@ -1,6 +1,7 @@
 export function extractVariables(text) {
-  const matches = [...text.matchAll(/{{\s*([a-zA-Z0-9_$][a-zA-Z0-9_$]*)\s*}}/g)];
-  return [...new Set(matches.map(m => m[1]))]; // unique variables
+  const regex = /\{\{\s*([a-zA-Z_$][a-zA-Z0-9_$-]*)\s*\}\}/g;
+  const variables = [...text.matchAll(regex)].map(match => match[1]);
+  return variables
 }
 
 export const DEFAULT_VARIABLES = [

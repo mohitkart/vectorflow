@@ -1,6 +1,6 @@
 // outputNode.js
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Handle, Position } from 'reactflow';
 import { shallow } from 'zustand/shallow';
 import { selector, useStore } from '../../utills/store';
@@ -20,6 +20,11 @@ export const OutputNode = ({ id, data }) => {
   const handleTypeChange = (e) => {
     setOutputType(e.target.value);
   };
+
+   useEffect(()=>{
+      onNodeDataUpdate({id:data.id,name:currName})
+    },[currName])
+  
 
   return (
     <div className="w-[200px] border border-blue-500 rounded text-[12px]">
