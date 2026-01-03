@@ -9,7 +9,6 @@ import  {selector, useStore} from "../../utills/store"
 export const TextNode = ({ id, data }) => {
  const {
       nodes,
-      edges,
       removeNode
     } = useStore(selector, shallow);
 
@@ -25,9 +24,6 @@ export const TextNode = ({ id, data }) => {
   useEffect(() => {
     const vars = extractVariables(text);
     setVariables(vars);
-    console.log("vars",vars)
-    console.log("text",text)
-    console.log("text matchAll",text.matchAll(/{{\s*([a-zA-Z0-9_$][a-zA-Z0-9_$]*)\s*}}/g).map(itm=>itm[0]))
   }, [text]);
 
 
@@ -79,7 +75,7 @@ export const TextNode = ({ id, data }) => {
           type="target"
           position={Position.Left}
           title={variable}
-          id={`${variable}-connect`}
+          id={`${variable}-${index}-value`}
           style={{ top: 40 + index * 20 }}
         />
       ))}

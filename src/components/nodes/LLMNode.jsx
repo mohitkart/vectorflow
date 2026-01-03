@@ -25,7 +25,7 @@ export const LLMNode = ({ id, data }) => {
         style={{top: `${200/3}%`}}
       />
       <div className='px-3 py-2 font-bold border-b border-blue-500 bg-blue-50 flex gap-1 items-center'>
-        <span class="material-symbols-outlined text-[20px]">chat</span>
+        <span className="material-symbols-outlined text-[20px]">chat</span>
         <span>LLM</span>
         <span className="material-symbols-outlined !text-[18px] text-red-500 ml-auto cursor-pointer" onClick={()=>removeNode(id)}>close</span>
       </div>

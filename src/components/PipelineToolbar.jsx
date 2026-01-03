@@ -26,12 +26,13 @@ export const PipelineToolbar = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                nodes, edges,is_dag:isDAG(nodes,edges)
+                nodes, edges,
+                // is_dag:isDAG(nodes,edges)
+                is_dag:false
             })
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 setLoading(false)
                 setResult(data)
             })
