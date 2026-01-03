@@ -27,8 +27,7 @@ export const PipelineToolbar = () => {
             },
             body: JSON.stringify({
                 nodes, edges,
-                // is_dag:isDAG(nodes,edges)
-                is_dag:false
+                is_dag:isDAG(nodes,edges)
             })
         })
             .then(res => res.json())
