@@ -4,6 +4,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+Create the environment file by copying the example file:
+
+```bash
+cp env-example .env
+```
+Update the .env file with the required configuration values.
+
 In the project directory, you can run:
 
 ### `npm start`
