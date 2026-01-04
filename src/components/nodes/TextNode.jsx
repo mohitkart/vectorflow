@@ -1,18 +1,23 @@
 // textNode.js
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Handle, Position } from 'reactflow';
-import { extractVariables, getCurrentVariable } from '../../utills/shared';
+import { extractVariables, getCurrentVariable, isHandleConnected } from '../../utills/shared';
 import { shallow } from 'zustand/shallow';
 import { selector, useStore } from "../../utills/store"
 
 export const TextNode = ({ id, data }) => {
   const {
     nodes,
-    removeNode
+    edges,
+    removeNode,
+    onNodeDataUpdate,
+    addNewEdge,
+    removeEdge
   } = useStore(selector, shallow);
 
-  const DEFAULT_VARIABLES = nodes.filter(itm => itm.type == "customInput").map(itm => itm.data.name || itm.id)
+  const customInputs = nodes.filter(itm => itm.type == "customInput")
+  const DEFAULT_VARIABLES = customInputs.map(itm => itm.data.name || itm.id)
 
   const textareaRef = useRef(null);
   const [text, setText] = useState(data?.text || ``);
@@ -24,8 +29,26 @@ export const TextNode = ({ id, data }) => {
   useEffect(() => {
     const vars = extractVariables(text);
     setVariables(vars);
+    onNodeDataUpdate({id:data.id,text:text})
   }, [text]);
 
+  useEffect(() => {
+    removeEdge(id, 'target')
+    variables.map(variable => {
+      const varId = customInputs.find(itm => itm.data.name == variable)?.id
+      const newEdge = {
+        source: varId,
+        sourceHandle: `${varId}-value`,
+        target: id,
+        targetHandle: `${id}-${varId}-output`,
+      }
+      if (varId) {
+        setTimeout(() => {
+          addNewEdge(newEdge)
+        }, 100)
+      }
+    })
+  }, [variables.toString()])
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -57,28 +80,46 @@ export const TextNode = ({ id, data }) => {
     const updatedText = `${before}{{${variable}}}${after}`;
     setText(updatedText);
     setShowSuggestions(false);
-
     requestAnimationFrame(() => {
       textareaRef.current.focus();
     });
   };
+
+  const LeftHandles = useMemo(() => {
+    {
+     return <>
+     {variables.map((variable, index) => {
+        const varId = customInputs.find(itm => itm.data.name == variable)?.id || variable
+        const handleId = `${id}-${varId}-output`;
+        const isConnected = isHandleConnected(edges, id, handleId, 'target');
+        return (
+          <Handle
+            key={index}
+            type="target"
+            position={Position.Left}
+            id={handleId}
+            title={handleId}
+            isConnectable={!isConnected}
+            className={`${isConnected ? 'isConnected' : ''}`}
+            style={{ top: 40 + index * 20 }}
+          />
+        )
+      })}
+     </>
+    }
+  }, [variables.toString(),edges.map(itm=>itm.id).toString(),customInputs.map(itm=>itm.data.name).toString()])
+
+
+  const handleId = `${id}-value`;
+  const isConnected = isHandleConnected(edges, id, handleId, 'source');
   return (
-    <div className="w-[300px] border border-blue-500 rounded text-[12px]">
+    <div className="w-[350px] border border-blue-500 rounded text-[12px]">
       {/* Dynamic Handles */}
-      {variables.map((variable, index) => (
-        <Handle
-          key={variable}
-          type="target"
-          position={Position.Left}
-          title={variable}
-          id={`${variable}-${index}-value`}
-          style={{ top: 40 + index * 20 }}
-        />
-      ))}
+      {LeftHandles}
 
       <div className='px-3 py-2 font-bold border-b border-blue-500 bg-blue-50 flex gap-1 items-center'>
         <span className="material-symbols-outlined !text-[20px]">text_ad</span>
-        <span>Text</span>
+        <span>Text : <span className='text-blue-500'>{id}</span></span>
         <span className="material-symbols-outlined !text-[18px] text-red-500 ml-auto cursor-pointer" onClick={() => removeNode(id)}>close</span>
       </div>
       <div className='p-2 bg-white'>
@@ -112,7 +153,9 @@ export const TextNode = ({ id, data }) => {
       <Handle
         type="source"
         position={Position.Right}
-        id={`${id}-output`}
+        id={handleId}
+        isConnectable={!isConnected}
+        className={`${isConnected ? 'isConnected' : ''}`}
       />
 
 

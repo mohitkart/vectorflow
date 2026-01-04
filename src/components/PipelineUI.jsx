@@ -14,6 +14,7 @@ import { PreviewNode } from './nodes/PreviewNode';
 
 import 'reactflow/dist/style.css';
 import DeletableEdge from './DeletableEdge';
+import { getRandomCode } from '../utills/shared';
 
 
 const gridSize = 20;
@@ -32,7 +33,6 @@ export const PipelineUI = () => {
   const {
     nodes,
     edges,
-    getNodeID,
     addNode,
     onNodesChange,
     onEdgesChange,
@@ -63,7 +63,7 @@ export const PipelineUI = () => {
           y: event.clientY - reactFlowBounds.top,
         });
 
-        const nodeID = getNodeID(type);
+        const nodeID =`${type}-${getRandomCode(5)}`
         const newNode = {
           id: nodeID,
           type,

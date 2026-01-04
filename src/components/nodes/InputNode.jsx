@@ -6,21 +6,26 @@ import { selector, useStore } from '../../utills/store';
 import { shallow } from 'zustand/shallow';
 
 export const InputNode = ({ id, data }) => {
-   const {
-        onNodeDataUpdate,
-        removeNode,
-      } = useStore(selector, shallow);
+  const {
+    onNodeDataUpdate,
+    removeNode,
+  } = useStore(selector, shallow);
 
   const [currName, setCurrName] = useState(data?.inputName || id.replace('customInput-', 'input_'));
   const [inputType, setInputType] = useState(data.inputType || 'Text');
+  const [inputValue, setInputValue] = useState(data.value || '');
 
   const handleNameChange = (e) => {
     setCurrName(e.target.value);
   };
 
-  useEffect(()=>{
-    onNodeDataUpdate({id:data.id,name:currName})
-  },[currName])
+  useEffect(() => {
+    onNodeDataUpdate({ id: data.id, name: currName })
+  }, [currName])
+
+  useEffect(() => {
+    onNodeDataUpdate({ id: data.id, value: inputValue })
+  }, [inputValue])
 
   const handleTypeChange = (e) => {
     setInputType(e.target.value);
@@ -30,27 +35,36 @@ export const InputNode = ({ id, data }) => {
       <div className='px-3 py-2 font-bold border-b border-blue-500 bg-blue-50 flex gap-1 items-center'>
         <span className="material-symbols-outlined !text-[20px]">input</span>
         <span>Input</span>
-        <span className="material-symbols-outlined !text-[18px] text-red-500 ml-auto cursor-pointer" onClick={()=>removeNode(id)}>close</span>
+        <span className="material-symbols-outlined !text-[18px] text-red-500 ml-auto cursor-pointer" onClick={() => removeNode(id)}>close</span>
       </div>
       <div className='p-2 bg-white'>
         <label className='mb-1 block'>
-          <input 
-            type="text" 
-            value={currName?.trim()} 
+          <input
+            type="text"
+            value={currName?.trim()}
             className='border rounded px-2 py-1 w-full bg-gray-50'
-            onChange={handleNameChange} 
+            onChange={handleNameChange}
           />
         </label>
-        <label>
+        {/* <label className='mb-1 block'>
           Type:
           <select
-          value={inputType} 
-          onChange={handleTypeChange}
-           className='border rounded px-2 py-1 w-full bg-white'
+            value={inputType}
+            onChange={handleTypeChange}
+            className='border rounded px-2 py-1 w-full bg-white'
           >
             <option value="Text">Text</option>
             <option value="File">File</option>
           </select>
+        </label> */}
+        <label>
+          Value:
+          <input
+            type="text"
+            value={inputValue}
+            onChange={e => setInputValue(e.target.value)}
+            className='border rounded px-2 py-1 w-full bg-white'
+          />
         </label>
       </div>
       <Handle

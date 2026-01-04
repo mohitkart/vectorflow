@@ -21,5 +21,9 @@ code {
   width: 10px !important;
   outline: 1px solid #000;
   border: 2px solid #fff !important;
-  background: #4e8ef7 !important;
+  background: #fff !important;
+}
+
+.react-flow__handle.isConnected{
+  background:#4e8ef7 !important;
 }
