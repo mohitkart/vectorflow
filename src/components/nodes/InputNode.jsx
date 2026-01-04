@@ -27,14 +27,11 @@ export const InputNode = ({ id, data }) => {
     onNodeDataUpdate({ id: data.id, value: inputValue })
   }, [inputValue])
 
-  const handleTypeChange = (e) => {
-    setInputType(e.target.value);
-  };
   return (
-    <div className="w-[200px] border border-blue-500 rounded text-[12px]">
+    <div className="w-[250px] border border-blue-500 rounded text-[12px]">
       <div className='px-3 py-2 font-bold border-b border-blue-500 bg-blue-50 flex gap-1 items-center'>
         <span className="material-symbols-outlined !text-[20px]">input</span>
-        <span>Input</span>
+        <span>Input: <span className='text-blue-500'>{id}</span></span>
         <span className="material-symbols-outlined !text-[18px] text-red-500 ml-auto cursor-pointer" onClick={() => removeNode(id)}>close</span>
       </div>
       <div className='p-2 bg-white'>

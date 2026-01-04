@@ -45,10 +45,10 @@ export const TextNode = ({ id, data }) => {
       if (varId) {
         setTimeout(() => {
           addNewEdge(newEdge)
-        }, 100)
+        }, 200)
       }
     })
-  }, [variables.toString()])
+  }, [variables.toString(),customInputs.map(itm=>itm.data.name).toString()])
 
   const handleChange = (e) => {
     const value = e.target.value;

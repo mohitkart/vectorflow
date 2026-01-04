@@ -7,7 +7,7 @@ export function extractVariables(text) {
 export function replaceVariables(text, data) {
   const regex = /\{\{\s*([a-zA-Z_$][a-zA-Z0-9_$-]*)\s*\}\}/g;
   return text.replace(regex, (_, key) => {
-    return key in data ? (data[key]||key||'__') : `{{${key}}}`;
+    return key in data ? (data[key]||`{{${key}}}`||'__') : `{{${key}}}`;
   });
 }
 
