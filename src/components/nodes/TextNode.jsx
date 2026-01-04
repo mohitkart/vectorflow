@@ -16,7 +16,7 @@ export const TextNode = ({ id, data }) => {
     removeEdge
   } = useStore(selector, shallow);
 
-  const customInputs = nodes.filter(itm => itm.type == "customInput")
+  const customInputs = nodes.filter(itm => itm.type == "inputN")
   const DEFAULT_VARIABLES = customInputs.map(itm => itm.data.name || itm.id)
 
   const textareaRef = useRef(null);

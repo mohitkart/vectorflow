@@ -20,9 +20,9 @@ import { getRandomCode } from '../utills/shared';
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
 const nodeTypes = {
-  customInput: InputNode,
+  inputN: InputNode,
   llm: LLMNode,
-  customOutput: OutputNode,
+  outputN: OutputNode,
   text: TextNode,
   preview: PreviewNode
 };

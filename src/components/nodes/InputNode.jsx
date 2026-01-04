@@ -11,7 +11,7 @@ export const InputNode = ({ id, data }) => {
     removeNode,
   } = useStore(selector, shallow);
 
-  const [currName, setCurrName] = useState(data?.inputName || id.replace('customInput-', 'input_'));
+  const [currName, setCurrName] = useState(data?.inputName || id.replace('inputN-', 'input_'));
   const [inputType, setInputType] = useState(data.inputType || 'Text');
   const [inputValue, setInputValue] = useState(data.value || '');
 
@@ -28,7 +28,7 @@ export const InputNode = ({ id, data }) => {
   }, [inputValue])
 
   return (
-    <div className="w-[250px] border border-blue-500 rounded text-[12px]">
+    <div className="w-[200px] border border-blue-500 rounded text-[12px]">
       <div className='px-3 py-2 font-bold border-b border-blue-500 bg-blue-50 flex gap-1 items-center'>
         <span className="material-symbols-outlined !text-[20px]">input</span>
         <span>Input: <span className='text-blue-500'>{id}</span></span>

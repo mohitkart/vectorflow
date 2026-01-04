@@ -36,9 +36,6 @@ export const PreviewNode = ({ id, data }) => {
   const handleId = `${id}-value`;
   const isConnected = isHandleConnected(edges, id, handleId, 'target');
 
-  console.log("nodes",nodes)
-  console.log("edges",edges)
-
   return (
     <div className="w-[350px] border border-blue-500 rounded text-[12px]">
       <Handle

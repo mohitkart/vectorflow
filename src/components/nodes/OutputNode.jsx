@@ -6,7 +6,7 @@ import { shallow } from 'zustand/shallow';
 import { selector, useStore } from '../../utills/store';
 
 export const OutputNode = ({ id, data }) => {
-  const [currName, setCurrName] = useState(data?.outputName || id.replace('customOutput-', 'output_'));
+  const [currName, setCurrName] = useState(data?.outputName || id.replace('outputN-', 'output_'));
   const [outputType, setOutputType] = useState(data.outputType || 'Text');
    const {
           onNodeDataUpdate,
@@ -35,7 +35,7 @@ export const OutputNode = ({ id, data }) => {
       />
       <div className='px-3 py-2 font-bold border-b border-blue-500 bg-blue-50 flex gap-1 items-center'>
         <span className="material-symbols-outlined text-[20px]">output</span>
-        <span>Output</span>
+        <span>Output: <span className='text-blue-500'>{id}</span></span>
         <span className="material-symbols-outlined !text-[18px] text-red-500 ml-auto cursor-pointer" onClick={()=>removeNode(id)}>close</span>
       </div>
       <div className='p-2 bg-white'>

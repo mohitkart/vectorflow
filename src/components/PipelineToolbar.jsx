@@ -44,9 +44,9 @@ export const PipelineToolbar = () => {
 
     return (
         <div className="p-2 flex flex-wrap gap-2 bg-blue-50 border-b border-blue-500">
-            <DraggableNode type='customInput' label="Input" icon={<span className="material-symbols-outlined !text-[18px]">input</span>} />
+            <DraggableNode type='inputN' label="Input" icon={<span className="material-symbols-outlined !text-[18px]">input</span>} />
             <DraggableNode type='llm' label='LLM' icon={<span className="material-symbols-outlined !text-[18px]">chat</span>} />
-            <DraggableNode type='customOutput' label='Output' icon={<span className="material-symbols-outlined !text-[18px]">output</span>} />
+            <DraggableNode type='outputN' label='Output' icon={<span className="material-symbols-outlined !text-[18px]">output</span>} />
             <DraggableNode type='text' label='Text' icon={<span className="material-symbols-outlined !text-[18px]">text_ad</span>} />
             <DraggableNode type='preview' label='Preview' icon={<span className="material-symbols-outlined !text-[18px]">preview</span>} />
 
